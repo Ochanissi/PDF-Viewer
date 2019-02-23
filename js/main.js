@@ -75,7 +75,17 @@ pdfjsLib.getDocument(url).promise.then(pdfDoc_ => {
     document.querySelector('#page-count').textContent = pdfDoc.numPages;
 
     renderPage(pageNum);
-});
+})
+    .catch(err => {
+        // Display Error
+        const div = document.createElement('div');
+        div.className = 'error';
+        div.appendChild(document.createTextNode(err.message));
+        document.querySelector('body').insertBefore(div, canvas);
+
+        // Remove top bar
+        document.querySelector('.top-bar'). style.display = 'none';
+    });
 
 // Buttom Events
 document.querySelector('#prev-page').addEventListener('click', showPrevPage);
